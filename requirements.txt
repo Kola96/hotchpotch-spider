@@ -1,0 +1,6 @@
+PyMySQL==1.0.2
+Scrapy==2.5.1
+scrapyd==1.2.1
+requests==2.26.0
+itemadapter==0.4.0
+lxml==4.6.3

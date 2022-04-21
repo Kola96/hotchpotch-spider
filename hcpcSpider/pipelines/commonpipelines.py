@@ -19,6 +19,7 @@ class MysqlPipeline:
         item.setdefault('description', '')
         item.setdefault('cover_img_url', '')
         item.setdefault('tags', [])
+        item.setdefault('media_type', 0)
         item.setdefault('publish_time', datetime.now())
         # 处理超长desc
         if isinstance(item['description'], str):
@@ -28,7 +29,7 @@ class MysqlPipeline:
             item['description'] = ''
 
         spider.log(f'''
-        INSERT INTO hcpc_article (`title`, `source`, `author`, `description`, `cover_img_url`, `tags`, `article_url`, `sign`, `publish_time`)
+        INSERT INTO hcpc_article (`title`, `source`, `author`, `description`, `cover_img_url`, `tags`, `article_url`, `sign`, `media_type`, `publish_time`)
         VALUES ('{item['title']}', 
                 '{item['source']}', 
                 '{item['author']}', 
@@ -37,8 +38,9 @@ class MysqlPipeline:
                 '{item['tags']}', 
                 '{item['article_url']}', 
                 '{item['sign']}', 
+                '{item['media_type']}', 
                 '{item['publish_time']}')''')
-        insert_sql = '''INSERT INTO hcpc_article (`title`, `source`, `author`, `description`, `cover_img_url`, `tags`, `article_url`, `sign`, `publish_time`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)'''
+        insert_sql = '''INSERT INTO hcpc_article (`title`, `source`, `author`, `description`, `cover_img_url`, `tags`, `article_url`, `sign`, `media_type`, `publish_time`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'''
         self.cursor.execute(insert_sql, (item['title'],
                                          item['source'],
                                          item['author'],
@@ -47,7 +49,12 @@ class MysqlPipeline:
                                          ','.join(item['tags']),
                                          item['article_url'],
                                          item['sign'],
+                                         item['media_type'],
                                          item['publish_time']))
+        article_id = self.cursor.lastrowid
+        content_sql = 'INSERT INTO hcpc_article_content (`article_id`, `content`) VALUES (%s, %s)'
+        self.cursor.execute(content_sql, (article_id,
+                                          item['content']))
         self.conn.commit()
 
     def open_spider(self, spider):

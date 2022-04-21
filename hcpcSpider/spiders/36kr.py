@@ -44,8 +44,8 @@ class GcoresSpider(scrapy.Spider):
                         article['author'] = ''
                         article['description'] = ''
                         article['cover_img_url'] = w['widgetImage']
-                        article['tags'] = ['视频']
                         article['article_url'] = f'{self.host}/video/{w["widgetId"]}'
+                        article['media_type'] = 1
                         yield article
                 elif temp['templateType'] == 1:
                     article = Article()
@@ -54,8 +54,8 @@ class GcoresSpider(scrapy.Spider):
                     article['author'] = temp['authorName']
                     article['description'] = remove_empty_char(temp['summary'])
                     article['cover_img_url'] = temp['widgetImage']
-                    article['tags'] = ['视频']
                     article['article_url'] = f'{self.host}/video/{temp["itemId"]}'
+                    article['media_type'] = 1
                     yield article
                 else:
                     continue

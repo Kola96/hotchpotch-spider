@@ -21,7 +21,7 @@ class YysSpider(scrapy.Spider):
             article['cover_img_url'] = container.xpath('a/div[1]/div[@class="scale-img"]/@style').re(r'background-image: url\((.+)_w360\)')[0]
             article['tags'] = ['游戏']
             article['article_url'] = self.host + container.xpath('a/@href').extract_first()
-            article['text_xpath'] = '//div[@class="doc-content rel"]//text()'
+            article['text_xpath'] = '//div[@class="doc-content rel"]/div[1]//text()'
             yield article
 
 

@@ -25,6 +25,7 @@ class ChuappSpider(scrapy.Spider):
             article['tags'] = ['游戏']
             article['article_url'] = self.host + a.xpath('@href').extract_first().strip()
             article['text_xpath'] = '//div[@class="the-content"]//text()'
+            article['media_type'] = 0
             yield article
 
 

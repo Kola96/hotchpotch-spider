@@ -30,6 +30,7 @@ class GcoresSpider(scrapy.Spider):
                 article['cover_img_url'] = temp['widgetImage']
                 article['article_url'] = f'{self.host}/p/{temp["itemId"]}'
                 article['text_xpath'] = '//p/text()'
+                article['media_type'] = 0
                 yield article
             elif item['itemType'] == 5000:
                 continue

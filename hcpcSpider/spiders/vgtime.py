@@ -30,6 +30,7 @@ class VgtimeSpider(scrapy.Spider):
                 article['tags'] = ['游戏']
                 article['article_url'] = f'{self.host}/topic/{o["id"]}.jhtml'
                 article['text_xpath'] = '//article/div[3]//text()'
+                article['media_type'] = 0
                 yield article
         else:
             lis = re.findall(r'<li class=\'news\'>.+?</li>', xml)
@@ -45,6 +46,7 @@ class VgtimeSpider(scrapy.Spider):
                 article['tags'] = ['游戏']
                 article['article_url'] = self.host + re.findall(r'href=\'(.+?)\'', li)[0]
                 article['text_xpath'] = '//article/div[3]//text()'
+                article['media_type'] = 0
                 yield article
 
 

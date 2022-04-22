@@ -22,6 +22,7 @@ class YysSpider(scrapy.Spider):
             article['tags'] = ['游戏']
             article['article_url'] = self.host + container.xpath('a/@href').extract_first()
             article['text_xpath'] = '//div[@class="doc-content rel"]/div[1]//text()'
+            article['media_type'] = 0
             yield article
 
 

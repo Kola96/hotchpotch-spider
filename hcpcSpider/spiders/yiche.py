@@ -23,6 +23,7 @@ class YicheArticleSpider(scrapy.Spider):
             article['article_url'] = self.host + div.xpath('div//a/@href').extract_first()
             article['publish_time'] = div.xpath('div//*[@class="time"]/text()').extract_first()
             article['text_xpath'] = '//div[@class="news-detail-main motu_cont"]//text()'
+            article['media_type'] = 0
             yield article
 
 

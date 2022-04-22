@@ -37,6 +37,7 @@ class GcoresSpider(scrapy.Spider):
             article['article_url'] = self.host + '/articles/' + i['id']
             article['publish_time'] = i['attributes']['published-at'].split('+')[0].replace('T', ' ')
             article['text_xpath'] = '//div[@data-contents="true"]//text()'
+            article['media_type'] = 0
             yield article
 
 

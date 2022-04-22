@@ -21,6 +21,7 @@ class AutohomeArticleSpider(scrapy.Spider):
             article['tags'] = ['汽车']
             article['article_url'] = 'https:' + focus.xpath('a/@href').extract_first()
             article['text_xpath'] = '//*[@id="articleContent"]/p//text()'
+            article['media_type'] = 0
             yield article
 
         article_list = response.xpath('//ul[@class="article"]/li')
@@ -35,6 +36,7 @@ class AutohomeArticleSpider(scrapy.Spider):
             article['tags'] = ['汽车']
             article['article_url'] = 'https:' + a.xpath('a/@href').extract_first()
             article['text_xpath'] = '//*[@id="articleContent"]/p//text()'
+            article['media_type'] = 0
             yield article
 
 

@@ -22,6 +22,7 @@ class EngadgetSpider(scrapy.Spider):
             item['cover_img_url'] = re.findall(r'background-image:url\((.+)\)', article.xpath('div/a/div/@style').extract_first())
             item['article_url'] = self.host + article.xpath('div/a/@href').extract_first()
             item['text_xpath'] = '//div[@id="post-center-col"]/div[1]//p/text()'
+            item['media_type'] = 0
             yield item
 
 
